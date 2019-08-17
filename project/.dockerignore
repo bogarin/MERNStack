@@ -1,0 +1,8 @@
+Dockerfile
+.dockerignore
+node_modules
+yarn.lock
+.git
+.gitignore
+README.md
+env.*

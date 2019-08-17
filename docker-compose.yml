@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  # webserver:
+  #   image: nginx:mainline-alpine
+  #   container_name: webserver
+  #   restart: unless-stopped
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     - ./project/views/:/var/www/html
+  #     - ./nginx-conf:/etc/nginx/conf.d
+  #   depends_on:
+  #     - node
+  #   networks:
+  #     - app-network
+
+  # node:
+  #   build:
+  #     context: ./project/
+  #     dockerfile: Dockerfile
+  #   image: nodejs
+  #   container_name: container_app_nodejs
+  #   ports:
+  #   - 8000:3000
+  #   networks:
+  #     - app-network
+
+  mongo:
+    image: mongo
+    container_name: container_mongo
+    restart: always
+    ports:  
+      - 1717:27017
+    volumes:
+      - ./dataMongoDB:/data/db/
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: container_mexpress
+    restart: always
+    ports:
+      - 8888:8081
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
